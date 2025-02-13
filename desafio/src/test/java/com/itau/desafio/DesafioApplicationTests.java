@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.OffsetDateTime;
 
-@SpringBootTest
 class DesafioApplicationTests {
 
 	@Test
