@@ -15,8 +15,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> transactions(@RequestBody Transaction transaction) {
-        // TODO: falta logging
+    public ResponseEntity<String> transactions(@RequestBody Transaction transaction) {
         transactionService.addTransaction(transaction);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
