@@ -14,7 +14,7 @@ class DesafioApplicationTests {
 		Transaction transaction = new Transaction(100.0, OffsetDateTime.now().plusDays(1));
 
 		assertThrows(
-				IllegalArgumentException.class,
+				InvalidTransactionException.class,
 				() -> transactionService.addTransaction(transaction)
 		);
 
@@ -26,7 +26,7 @@ class DesafioApplicationTests {
 		Transaction transaction = new Transaction(-1.0, OffsetDateTime.now());
 
 		assertThrows(
-				IllegalArgumentException.class,
+				InvalidTransactionException.class,
 				() -> transactionService.addTransaction(transaction)
 		);
 
