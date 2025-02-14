@@ -16,13 +16,16 @@ java {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("org.springframework.boot:spring-boot-starter-web") {
+		exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+	}
+	implementation("org.springframework.boot:spring-boot-starter-log4j2")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+	}
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-
 }
 
 tasks.withType<Test> {
