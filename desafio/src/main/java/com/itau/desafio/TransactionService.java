@@ -25,11 +25,11 @@ public class TransactionService {
     private void validTransaction(Transaction transaction) {
         // TODO: mover para responsabilidade
         if (transaction.dataHora().isAfter(OffsetDateTime.now())) {
-            throw new IllegalArgumentException();
+            throw new InvalidTransactionException("Data não pode estar no futuro");
 
         }
         if (transaction.valor() < 0) {
-            throw new IllegalArgumentException();
+            throw new InvalidTransactionException("O valor da transação não pode ser negativo");
 
         }
     }
