@@ -1,7 +1,7 @@
 package com.itau.desafio;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -13,9 +13,11 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionService {
     private final List<Transaction> transactionList = new ArrayList<>();
+    Logger logger = LogManager.getLogger(TransactionService.class);
 
     public void addTransaction(Transaction transaction) {
         validTransaction(transaction);
+        logger.info("Transaction: {}", transaction);
         transactionList.add(transaction);
 
     }
@@ -37,6 +39,7 @@ public class TransactionService {
     }
 
     public void deleteTransactions() {
+        logger.info("Transactions deleted");
         transactionList.clear();
     }
 
