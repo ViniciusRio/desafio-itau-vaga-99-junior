@@ -6,10 +6,17 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!-- File Appender -->
-        <File name="File" fileName="logs/application.log">
+        <RollingFile name="File" fileName="logs/application.log" filePattern="logs/application-%d{yyyy-MM-dd-HH-mm-ss}.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </File>
+            <Policies>
+                <!-- Rotaciona o arquivo no início do servidor -->
+                <OnStartupTriggeringPolicy/>
+                <!-- Rotaciona o arquivo ao atingir 10 MB -->
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <!-- Mantém até 7 arquivos de log -->
+            <DefaultRolloverStrategy max="7"/>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
