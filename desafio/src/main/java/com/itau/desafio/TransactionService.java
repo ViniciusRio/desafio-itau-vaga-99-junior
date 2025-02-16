@@ -2,6 +2,7 @@ package com.itau.desafio;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
+    @Value("${STATISTICS_WINDOW:60}")
+    private int statisticsWindow;
+
     private final List<Transaction> transactionList = new ArrayList<>();
     Logger logger = LogManager.getLogger(TransactionService.class);
 
@@ -47,7 +51,7 @@ public class TransactionService {
         List<Double> values = transactionList.stream()
                 .filter(transaction -> transaction
                         .dataHora()
-                        .isAfter(OffsetDateTime.now().minusSeconds(60))
+                        .isAfter(OffsetDateTime.now().minusSeconds(statisticsWindow))
                 )
                 .map(Transaction::valor)
                 .toList();

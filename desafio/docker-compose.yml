@@ -5,12 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: app-desafio
     environment:
-      - SPRING_DEVTOOLS_REMOTE_ENABLED=true
-      - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
-      - SPRING_DEVTOOLS_LIVERELOAD_PORT=35729
       - TZ=America/Sao_Paulo
+      - STATISTICS_WINDOW=120
     ports:
       - "8080:8080"
-      - "35729:35729"
     volumes:
       - .:/app
