@@ -36,6 +36,8 @@ dependencies {
 		exclude(group = "ch.qos.logback", module = "logback-classic")
 		exclude(group = "ch.qos.logback", module = "logback-core")
 	}
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
+
 }
 
 
