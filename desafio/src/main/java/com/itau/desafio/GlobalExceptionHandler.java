@@ -21,24 +21,38 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 invalidTransactionException.getMessage(),
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
-                "Transação Inválida",
+                "TRANSACAO_INVALIDA",
                 LocalDateTime.now().toString()
         );
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
-
     }
+
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Void> handleInvalidTransaction() {
-        logger.error("Invalid transaction");
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    public ResponseEntity<ErrorResponse> handleInvalidTransaction(IllegalArgumentException ex) {
+        logger.error("Argumento inválido: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Argumento inválido: " + ex.getMessage(),
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "ARGUMENTO_INVALIDO",
+                LocalDateTime.now().toString()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Void> handleGenericException(Exception e) {
-        // TODO: Textos devem ser armazenados em outro local para tradução
-        logger.error("Erro não tratado: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+        logger.error("Erro não tratado: {}", ex.getMessage());
 
+        ErrorResponse errorResponse = new ErrorResponse(
+                "Ocorreu um erro inesperado: " + ex.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "ERRO_INTERNO",
+                LocalDateTime.now().toString()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
